@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="static/index.css?v=1.0.199">
+<body>
+    <table>
+        <tr>
+            <th>rating1</th>
+            <th>rating2</th>
+            <th>rating</th>
+        </tr>
+        {% for customers in customer %}
+        <tr>
+        <td>{{ customers['rating1']}}</td>
+        <td>{{ customers['rating2'] }}</td>
+        <td>{{ customers['rating'] }}</td>
+        </tr>
+        {% endfor %}       
+    </table>   
+</body>
+</head>
+</html>

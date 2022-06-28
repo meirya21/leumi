@@ -1,0 +1,7 @@
+flask
+Flask==2.1.2
+Flask-PyMongo==2.3.0
+requests==2.25.1
+datetime
+pymongo==4.1.1
+dnspython3==1.15.0 
