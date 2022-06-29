@@ -13,10 +13,8 @@ node {
 
     //Stage 1 : Build the docker image.
     stage('Build image') {
-        docker.withTool('docker'){
-            docker.withRegistry('repo','credentials') { 
+        docker.withTool('docker'){ 
                 sh("docker build -t ${imageTag} .")
-            }
         }
     }
     
