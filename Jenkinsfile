@@ -13,14 +13,12 @@ node {
 
     //Stage 1 : Build the docker image.
     stage('Build image') {
-        docker.withTool('docker'){ 
-                sh("docker build -t ${imageTag} .")
-        }
+        sh("docker build -t ${imageTag} .")
     }
     
     //Stage 2 : Push the image to docker registry
     stage('Push image to registry') {
-        sh("docker push ${imageTag}")
+        sh("gcloud docker -- push ${imageTag}")
     }
   
   //Stage 3 : Deploy Application
