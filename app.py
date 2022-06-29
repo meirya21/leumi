@@ -6,7 +6,6 @@ import pymongo
 
 app = Flask(__name__)
 
-
 mongodb = pymongo.MongoClient('mongo', 27017, username='admin', password='admin')
 # mongodb = pymongo.MongoClient('mongodb://admin:admin1234@mongo-mongodb-0.mongo-mongodb-headless.default.svc.cluster.local:27017/')
 db = mongodb["feed"]
