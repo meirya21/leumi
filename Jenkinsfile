@@ -1,7 +1,12 @@
-node {
-    tools {
+pipline {
+    agent any
+
+        tools {
         docker 'docker' 
     }
+}
+
+node {
 
     //Define all variables
     def project = 'astral-archive-351007'
