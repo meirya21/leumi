@@ -4,7 +4,6 @@ pipline {
         tools {
         docker 'docker' 
     }
-}
 
 node {
 
@@ -66,4 +65,5 @@ node {
                         break
         }
     }
+}
 }
