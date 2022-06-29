@@ -6,13 +6,18 @@ node {
     def serviceName = "${appName}-backend"  
     def namespace = 'feedback'
     def imageTag = "gcr.io/${project}/${appName}:${env.BUILD_NUMBER}"
+    
 
     //Checkout Code from Git
     checkout scm
 
     //Stage 1 : Build the docker image.
     stage('Build image') {
-        sh("docker build -t ${imageTag} .")
+        docker.withTool('docker'){
+            docker.withRegistry('repo','credentials') { 
+                sh("docker build -t ${imageTag} .")
+            }
+        }
     }
     
     //Stage 2 : Push the image to docker registry
