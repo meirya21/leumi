@@ -7,6 +7,12 @@ node {
   def namespace = 'feedback'
   def imageTag = "gcr.io/${project}/${appName}:${env.BUILD_NUMBER}"
   
+
+  tools {
+  <...>
+  'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
+    }
+
   //Checkout Code from Git
   checkout scm
   
