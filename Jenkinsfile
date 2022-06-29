@@ -1,10 +1,3 @@
-pipline {
-    agent any
-
-        tools {
-        docker 'docker' 
-    }
-
 node {
 
     //Define all variables
@@ -16,6 +9,10 @@ node {
 
     //Checkout Code from Git
     checkout scm
+
+    tools {
+        docker 'docker' 
+    }
     
     //Stage 1 : Build the docker image.
     stage('Build image') {
