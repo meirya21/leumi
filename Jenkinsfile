@@ -13,7 +13,7 @@ node {
     tools {
         docker 'docker' 
     }
-    
+
     //Stage 1 : Build the docker image.
     stage('Build image') {
         sh("docker build -t ${imageTag} .")
@@ -62,5 +62,4 @@ node {
                         break
         }
     }
-}
 }
