@@ -1,0 +1,24 @@
+version: "3"
+services:
+  jenkins:
+    build: 
+      context: .
+      args:
+        HOST_DOCKER_GID: 138
+    container_name: jenkins
+    hostname: jenkins
+    env_file:
+      - users.env
+    ports:
+      - 8880:8080
+      - 50000:50000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+      - ./config.yml:/var/jenkins_config.yml
+
+volumes:
+  jenkins_casc:
+    external: true
+  jenkins_home:
+    external: true

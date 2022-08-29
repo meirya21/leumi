@@ -1,0 +1,52 @@
+node {
+
+    //Define all variables
+    def project = 'enter-project-name'
+    def appName = 'feedback'
+    def serviceName = "${appName}"  
+    def imageTag = "gcr.io/${project}/${appName}"
+    def buildnum = "1.0.${env.BUILD_NUMBER}"
+
+    //Checkout Code from Git
+    checkout scm
+
+    //stage 1 : connect to gcr.
+    stage('connecting') {
+        sh("gcloud auth activate-service-account  jenkins-199@${project}.iam.gserviceaccount.com  --key-file=/var/jenkins_home/key.json")
+        sh("gcloud auth configure-docker")
+    }
+    
+    //master : Build the docker image.
+    stage('Build image') {
+        env.BRANCH_NAME == 'master'
+        sh("docker build -t ${imageTag}:latest .")
+        }
+    
+    //master : E2E testing
+    stage('E2E testing') {
+        env.BRANCH_NAME == 'master'
+         sh 'echo end-to-end testing is the process of testing a piece of software from start to finish as it will be used by the actual users'
+        }
+
+    //master : Push the image to gcp container registry
+    stage('Push image to registry') {
+        env.BRANCH_NAME == 'master'
+        sh("docker push ${imageTag}:latest ")
+        }
+
+    //feature build and test
+    stage('feature build and test') {
+        env.BRANCH_NAME == 'feature'
+        sh("docker build -t ${imageTag}:${buildnum} .")
+        sh("docker run -d ${imageTag}:${buildnum}")
+        sh 'echo place tests here'
+        }
+
+    //dev build and test
+        stage('feature or dev build and test') {
+        env.BRANCH_NAME == 'dev'
+        sh("docker build -t ${imageTag}/snapshot:${buildnum} .")
+        sh("docker run -d ${imageTag}/snapshot:${buildnum}")
+        sh 'echo place tests here'
+        }
+}
